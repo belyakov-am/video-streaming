@@ -2,7 +2,7 @@
 ## Contributors
 - Alexandra Latysheva ([@alexelex](https://github.com/alexelex))
 - Artem Belyakov ([@belyakov-am](https://github.com/belyakov-am))
-- Diana Zagidullina ([@belyakov-am](https://github.com/dianazagidullina))
+- Diana Zagidullina ([@dianazagidullina](https://github.com/dianazagidullina))
 - Aliia Khasanova ([@khasanovaa](https://github.com/khasanovaa))
 - Maria Polyakova ([@mashapolyakova](https://github.com/mashapolyakova))
 
