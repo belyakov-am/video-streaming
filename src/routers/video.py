@@ -11,11 +11,6 @@ router = APIRouter(
 )
 
 
-class VideoMeta(BaseModel):
-    name: str = None
-    description: str = None
-
-
 @router.post("/upload")
 async def video_upload(name: str, description: str, file: UploadFile = File(...)):
     # TODO(belyakov): check filename for . and /
