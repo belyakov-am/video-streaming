@@ -19,3 +19,6 @@ docker-compose up --build
 The service will be run on `0.0.0.0:8000` (i.e. `localhost:8000`). One should not 
 reload docker each time some changes were made as it is done automatically with uvicorn.
 and docker-compose volume.
+
+### Cloud
+To deploy application on cloud run `deploy.sh <token>` in root directory, where <token> is your OAth-token in Yandex Cloud (https://cloud.yandex.ru/docs/iam/concepts/authorization/oauth-token).
