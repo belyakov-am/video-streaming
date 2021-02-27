@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<video width="320" height="240" controls>
+		<source src="{{ url_for('video/stream') }}" type="video/mp4">
+	</video>
+{% endblock %}
