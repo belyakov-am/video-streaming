@@ -1,0 +1,11 @@
+version: "3.3"
+
+services:
+  backend:
+    build:
+      dockerfile: docker/backend.dockerfile
+      context: .
+    volumes:
+    - ./src:/app/src
+    ports:
+    - 8000:8000
