@@ -7,6 +7,7 @@ from fastapi import (
     HTTPException,
 )
 from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
 
 from src.config import VIDEO_DIR
 from src.utils import video_frames_generator
@@ -17,13 +18,21 @@ router = APIRouter(
 )
 
 
-@router.post("/upload")
+class VideoUploadResponse(BaseModel):
+    filename: str
+    content_type: str
+    name: str
+    uuid: str
+    description: str
+
+
+@router.post("/upload", response_model=VideoUploadResponse)
 # TODO(belyakov): get more metadata and save it to db
 async def video_upload(name: str, description: str, file: UploadFile = File(...)):
     # TODO(belyakov): check filename for . and /
 
     video_uuid = uuid.uuid4()
-    # TODO(belyakov): to something with file extension
+    # TODO(belyakov): do something with file extension
     video_path = VIDEO_DIR + str(video_uuid) + ".mp4"
 
     # save file to local filesystem
@@ -39,14 +48,25 @@ async def video_upload(name: str, description: str, file: UploadFile = File(...)
     }
 
 
-@router.get("/stream")
+@router.get(
+    path="/stream",
+    responses={
+        200: {
+            "content": {"multipart/x-mixed-replace": {}},
+            "description": "Return video as a stream of jpeg frames",
+        },
+        404: {
+            "description": "No video with such name",
+        },
+    }
+)
 async def video_stream(uuid: str):
     # TODO(belyakov): accept more metadata and get uuid from db
     filename = VIDEO_DIR + uuid + ".mp4"
 
     # check if file exists
     try:
-        f = open(filename)
+        open(filename)
     except IOError:
         # response with not found error
         raise HTTPException(status_code=404, detail="No video with such name")
