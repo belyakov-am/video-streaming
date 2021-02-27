@@ -7,6 +7,7 @@ from fastapi import (
     HTTPException,
 )
 from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
 
 from src.config import VIDEO_DIR
 from src.utils import video_frames_generator
@@ -17,7 +18,15 @@ router = APIRouter(
 )
 
 
-@router.post("/upload")
+class VideoUploadResponse(BaseModel):
+    filename: str
+    content_type: str
+    name: str
+    uuid: str
+    description: str
+
+
+@router.post("/upload", response_model=VideoUploadResponse)
 # TODO(belyakov): get more metadata and save it to db
 async def video_upload(name: str, description: str, file: UploadFile = File(...)):
     # TODO(belyakov): check filename for . and /
