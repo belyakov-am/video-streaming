@@ -40,9 +40,9 @@ async def video_upload(name: str, description: str, file: UploadFile = File(...)
 
 
 @router.get("/stream")
-async def video_stream(name: str):
+async def video_stream(uuid: str):
     # TODO(belyakov): accept more metadata and get uuid from db
-    filename = VIDEO_DIR + name + ".mp4"
+    filename = VIDEO_DIR + uuid + ".mp4"
 
     # check if file exists
     try:
