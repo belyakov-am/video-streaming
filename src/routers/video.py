@@ -34,6 +34,7 @@ async def video_upload(name: str, description: str, file: UploadFile = File(...)
         "filename": file.filename,
         "content_type": file.content_type,
         "name": name,
+        "uuid": video_uuid,
         "description": description,
     }
 
