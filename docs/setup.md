@@ -16,6 +16,6 @@ Being in the root repository directory just run:
 ```shell
 docker-compose up --build
 ```
-Service will be deployed at `0.0.0.0:8000` (i.e. `localhost:8000`). One should not 
-reload restart docker everytime after changes as it is done automatically with uvicorn
+The service will be run on `0.0.0.0:8000` (i.e. `localhost:8000`). One should not 
+reload docker each time some changes were made as it is done automatically with uvicorn.
 and docker-compose volume.
