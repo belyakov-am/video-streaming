@@ -48,14 +48,25 @@ async def video_upload(name: str, description: str, file: UploadFile = File(...)
     }
 
 
-@router.get("/stream")
+@router.get(
+    path="/stream",
+    responses={
+        200: {
+            "content": {"multipart/x-mixed-replace": {}},
+            "description": "Return video as a stream of jpeg frames",
+        },
+        404: {
+            "description": "No video with such name",
+        },
+    }
+)
 async def video_stream(uuid: str):
     # TODO(belyakov): accept more metadata and get uuid from db
     filename = VIDEO_DIR + uuid + ".mp4"
 
     # check if file exists
     try:
-        f = open(filename)
+        open(filename)
     except IOError:
         # response with not found error
         raise HTTPException(status_code=404, detail="No video with such name")
