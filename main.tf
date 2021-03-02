@@ -1,14 +1,7 @@
-variable "token" {
-}
-
-variable "cloud_id" {
-}
-
-variable "folder_id" {
-}
-
-variable "zone" {
-}
+variable "token" {}
+variable "cloud_id" {}
+variable "folder_id" {}
+variable "zone" {}
 
 provider "yandex" {
   token     = var.token
