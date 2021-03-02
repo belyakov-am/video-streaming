@@ -21,4 +21,12 @@ reload docker each time some changes were made as it is done automatically with 
 and docker-compose volume.
 
 ### Cloud
-To deploy application on cloud run `deploy.sh <token>` in root directory, where <token> is your OAth-token in Yandex Cloud (https://cloud.yandex.ru/docs/iam/concepts/authorization/oauth-token).
+To deploy application on cloud:
+1. Run `mv .env.example .env`. 
+2. Fill the environment variables that are listed in .env with corresponding values: 
+    - `OATH_TOKEN` is your OAth-token in Yandex Cloud (https://cloud.yandex.ru/docs/iam/concepts/authorization/oauth-token).
+    - `CLOUD_ID` is the identificator of you yandex cloud account (can be found here https://console.cloud.yandex.ru/cloud).
+    - `CLOUD_FOLDER_ID` is the id of folder in your yandex cloud account (https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id).
+    - `CLOUD_ZONE` is the zone, where you want your application to be run, for example "ru-central1-a".
+3. Run `./deploy.sh` in the root directory. It will deploy the application in Yandex cloud in separate network.
+                               
