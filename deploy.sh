@@ -1,8 +1,16 @@
 #/bin/sh
 
+export $(grep -v '^#' .env | xargs)
+
 terraform init
-terraform plan -var "token=$1"
-terraform apply -var "token=$1" -auto-approve
+terraform plan -var "token=$OATH_TOKEN" \
+	       -var "folder_id=$CLOUD_FOLDER_ID" \
+	       -var "zone=$CLOUD_ZONE" \
+	       -var "cloud_id=$CLOUD_ID"
+terraform apply -var "token=$OATH_TOKEN" \
+	        -var "folder_id=$CLOUD_FOLDER_ID" \
+                -var "zone=$CLOUD_ZONE" \
+                -var "cloud_id=$CLOUD_ID" -auto-approve
 
 terraform output >ips.txt
 

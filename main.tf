@@ -1,11 +1,20 @@
 variable "token" {
 }
 
+variable "cloud_id" {
+}
+
+variable "folder_id" {
+}
+
+variable "zone" {
+}
+
 provider "yandex" {
   token     = var.token
-  cloud_id  = "b1g41ugvrcobabibvalm"
-  folder_id = "b1ghhlg13ac7kb7miilc"
-  zone      = "ru-central1-a"
+  cloud_id  = var.cloud_id
+  folder_id = var.folder_id
+  zone      = var.zone
 }
 
 terraform {
