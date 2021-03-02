@@ -24,9 +24,9 @@ Along with that we will try our best to catch up on our university project.
 ## Milestones
 *Start date:* January 30, 2021
 
-- [ ] Implement a simple backend-server that will deal with HTML5 and represent video 
+- [x] Implement a simple backend-server that will deal with HTML5 and represent video 
       (that will be stored locally) on a simple browser page.
-- [ ] Upload a couple of videos to the db, deploy the backend-server and db in the AWS cloud. Connect them.
+- [x] Upload a couple of videos to the db, deploy the backend-server and db in the AWS cloud. Connect them.
 - [ ] Add CDN to the pipeline.
 - [ ] Implement some easy front-end features: list of the content, sorting, 
       short description (maybe trailers) of the films. Use REST API to connect all this with the backend.
