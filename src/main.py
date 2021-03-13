@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 import uvicorn
 
-from src.routers import video
-from src.utils import init_video_dir
+from routers import video
+from utils import init_video_dir
 
 
 app = FastAPI()

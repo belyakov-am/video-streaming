@@ -19,6 +19,6 @@ RUN pip install pipenv && pipenv install --system
 COPY /src ./src
 
 # Set PYTHONPATH
-ENV PYTHONPATH "${PYTHONPATH}:/app/src"
+ENV PYTHONPATH "/app/src:${PYTHONPATH}"
 
 CMD ["python", "src/main.py"]

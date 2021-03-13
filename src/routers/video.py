@@ -9,8 +9,8 @@ from fastapi import (
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
-from src.config import VIDEO_DIR
-from src.utils import video_frames_generator
+from config import VIDEO_DIR
+from utils import video_frames_generator
 
 
 router = APIRouter(

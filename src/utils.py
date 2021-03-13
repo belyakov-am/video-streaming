@@ -3,7 +3,7 @@ import typing as tp
 
 import cv2
 
-from src.config import VIDEO_DIR
+from config import VIDEO_DIR
 
 
 def video_frames_generator(video: tp.IO):
