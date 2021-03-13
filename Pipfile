@@ -7,8 +7,10 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [packages]
-fastapi = "*"
-opencv-python = "*"
-pydantic = "*"
-python-multipart = "*"
-uvicorn = "*"
+fastapi = "0.63.0"
+jinja2 = "2.11.3"
+opencv-python = "4.5.1.48"
+pydantic = "1.8.1"
+python-multipart = "0.0.5"
+uvicorn = "0.13.4"
+
