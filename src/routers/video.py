@@ -60,9 +60,9 @@ async def video_upload(name: str, description: str, file: UploadFile = File(...)
         },
     }
 )
-async def video_stream(uuid: str):
+async def video_stream(video_uuid: str):
     # TODO(belyakov): accept more metadata and get uuid from db
-    filename = VIDEO_DIR + uuid + ".mp4"
+    filename = VIDEO_DIR + video_uuid + ".mp4"
 
     # check if file exists
     try:
