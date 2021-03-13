@@ -31,9 +31,9 @@ class VideoUploadResponse(BaseModel):
 async def video_upload(name: str, description: str, file: UploadFile = File(...)):
     # TODO(belyakov): check filename for . and /
 
-    video_uuid = uuid.uuid4()
+    video_uuid = str(uuid.uuid4())
     # TODO(belyakov): do something with file extension
-    video_path = VIDEO_DIR + str(video_uuid) + ".mp4"
+    video_path = VIDEO_DIR + video_uuid + ".mp4"
 
     # save file to local filesystem
     with open(video_path, "wb+") as f:
