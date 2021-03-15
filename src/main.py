@@ -9,7 +9,7 @@ app = FastAPI()
 app.include_router(video.router)
 
 
-if __name__ == '__main__':
+def main() -> None:
     init_video_dir()
 
     uvicorn.run(
@@ -19,3 +19,7 @@ if __name__ == '__main__':
         log_level="info",
         reload=True
     )
+
+
+if __name__ == '__main__':
+    main()
