@@ -1,4 +1,3 @@
-import pathlib
 import uuid
 
 from fastapi import (
@@ -9,11 +8,17 @@ from fastapi import (
     Request,
 )
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import StreamingResponse, HTMLResponse
+from fastapi.responses import FileResponse
+from ffmpeg_streaming import (
+    Formats,
+    Bitrate,
+    Representation,
+    Size,
+    input as ffmpeg_input,
+)
 from pydantic import BaseModel
 
 from config import VIDEO_DIR, TEMPLATES_DIR
-from utils import video_frames_generator
 
 
 router = APIRouter(
@@ -37,12 +42,23 @@ async def video_upload(name: str, description: str, file: UploadFile = File(...)
     # TODO(belyakov): check filename for . and /
 
     video_uuid = str(uuid.uuid4())
+
+    video_dir = VIDEO_DIR / f"{video_uuid}"
+    video_dir.mkdir(exist_ok=True)
+
     # TODO(belyakov): do something with file extension
-    video_path = VIDEO_DIR + video_uuid + ".mp4"
+    video_path = video_dir / "video.mp4"
 
     # save file to local filesystem
     with open(video_path, "wb+") as f:
         f.write(await file.read())
+
+    # split video into chunks
+    video = ffmpeg_input(str(video_path))
+    dash = video.dash(Formats.h264())
+    _720p = Representation(Size(1280, 720), Bitrate(2048 * 1024, 320 * 1024))
+    dash.representations(_720p)
+    dash.output(str(video_dir / "video.mpd"), async_run=False)
 
     return {
         "filename": file.filename,
@@ -53,40 +69,30 @@ async def video_upload(name: str, description: str, file: UploadFile = File(...)
     }
 
 
-@router.get(
-    path="/stream",
-    responses={
-        200: {
-            "content": {"multipart/x-mixed-replace": {}},
-            "description": "Return video as a stream of jpeg frames",
-        },
-        404: {
-            "description": "No video with such name",
-        },
-    }
-)
-async def video_stream(video_uuid: str):
-    # TODO(belyakov): accept more metadata and get uuid from db
-    filename = VIDEO_DIR + video_uuid + ".mp4"
+@router.get("/stream-v2/{filepath:path}")
+async def video_stream_v2(filepath: str):
+    return FileResponse(VIDEO_DIR / filepath)
+
+
+@router.get("/show-v2")
+async def video_show_v2(request: Request, video_uuid: str):
+    output_dir = VIDEO_DIR / f"{video_uuid}"
+    filename = output_dir / "video.mp4"
 
     # check if file exists
-    filename_path = pathlib.Path(filename)
-    if not filename_path.exists():
+    if not filename.exists():
         # response with not found error
         raise HTTPException(status_code=404, detail="No video with such name")
 
-    return StreamingResponse(
-        content=video_frames_generator(filename),
-        media_type="multipart/x-mixed-replace; boundary=frame",
-    )
+    details = {
+        "path": f"/video/stream-v2/{video_uuid}/video.mpd",
+        "type": "video/mp4",
+    }
 
-
-@router.get("/show", response_class=HTMLResponse)
-async def video_show(request: Request, video_uuid: str):
     return templates.TemplateResponse(
         name="video.html",
         context={
             "request": request,
-            "video_uuid": video_uuid,
+            "details": details,
         }
     )
