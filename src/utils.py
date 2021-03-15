@@ -1,12 +1,19 @@
 import pathlib
-import typing as tp
+from typing import (
+    IO,
+    Generator,
+)
 
 import cv2
 
 from config import VIDEO_DIR
 
 
-def video_frames_generator(video: tp.IO):
+def init_video_dir():
+    pathlib.Path(VIDEO_DIR).mkdir(exist_ok=True)
+
+
+def video_frames_generator(video: IO) -> Generator[bytes, None, None]:
     vidcap = cv2.VideoCapture(video)
 
     while True:
@@ -20,7 +27,3 @@ def video_frames_generator(video: tp.IO):
 
         yield (b"--frame\r\n" b"Content-Type: image/jpeg\r\n\r\n" +
                bytearray(encoded_frame) + b"\r\n")
-
-
-def init_video_dir():
-    pathlib.Path(VIDEO_DIR).mkdir(exist_ok=True)
