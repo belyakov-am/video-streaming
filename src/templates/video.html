@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<video width="1280" height="720" controls>
-		<source src="http://localhost:8000/video/stream?video_uuid=78dd4543-d1a5-4f7e-970e-132d2ac5d980" type="video/mp4">
+	<video id="my-video" class="video-js" controls preload="auto" width="1280" height="720">
 	</video>
+    <script>
+	(function(){
+        var url = "{{ details['path'] }}";
+        var player = dashjs.MediaPlayer().create();
+        player.initialize(document.querySelector("#my-video"), url, true);
+    })();
+	</script>
 {% endblock %}
