@@ -69,13 +69,13 @@ async def video_upload(name: str, description: str, file: UploadFile = File(...)
     }
 
 
-@router.get("/stream-v2/{filepath:path}")
-async def video_stream_v2(filepath: str):
+@router.get("/stream/{filepath:path}")
+async def video_stream(filepath: str):
     return FileResponse(VIDEO_DIR / filepath)
 
 
-@router.get("/show-v2")
-async def video_show_v2(request: Request, video_uuid: str):
+@router.get("/show")
+async def video_show(request: Request, video_uuid: str):
     output_dir = VIDEO_DIR / f"{video_uuid}"
     filename = output_dir / "video.mp4"
 
