@@ -70,9 +70,8 @@ async def video_stream(video_uuid: str):
     filename = VIDEO_DIR + video_uuid + ".mp4"
 
     # check if file exists
-    try:
-        open(filename)
-    except IOError:
+    filename_path = pathlib.Path(filename)
+    if not filename_path.exists():
         # response with not found error
         raise HTTPException(status_code=404, detail="No video with such name")
 
