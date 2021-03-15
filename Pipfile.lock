@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1b685bbceca86228124e77f0d3f0d641d76a5db0b1551041c2a6d67bce1cc155"
+            "sha256": "e695f51546501dd6ba654452e824601b0c477996665332540742efa45a2a40e0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,14 @@
         ]
     },
     "default": {
+        "aiofiles": {
+            "hashes": [
+                "sha256:bd3019af67f83b739f8e4053c6c0512a7f545b9a8d91aaeab55e6e0f9d123c27",
+                "sha256:e0281b157d3d5d59d803e3f4557dcc9a3dff28a4dd4829a9ff478adae50ca092"
+            ],
+            "index": "pypi",
+            "version": "==0.6.0"
+        },
         "click": {
             "hashes": [
                 "sha256:d2b5255c7c6349bc1bd1e59e08cd12acbbd63ce649f2588755783aa94dfb6b1a",
@@ -194,6 +202,14 @@
             ],
             "index": "pypi",
             "version": "==1.8.1"
+        },
+        "python-ffmpeg-video-streaming": {
+            "hashes": [
+                "sha256:7eb2f4d6fbb035c84db49256b2a4b14cbf6481c5e634b31fddd08a302d3333d7",
+                "sha256:a77c8047fad2d70381f4ca76e726a7a352df9330c3476903869a682a5644c352"
+            ],
+            "index": "pypi",
+            "version": "==0.1.14"
         },
         "python-multipart": {
             "hashes": [

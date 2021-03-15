@@ -6,11 +6,12 @@ ENV PYTHONUNBUFFERED 1
 # Set working directory
 WORKDIR /app
 
+# Install dependencies for opencv package
+RUN apt update && \
+    apt -y install libgl1-mesa-glx ffmpeg
+
 # Copy pipenv files
 COPY Pipfile* ./
-
-# Install dependencies for opencv package
-RUN apt update && apt -y install libgl1-mesa-glx
 
 # Install dependencies
 RUN pip install pipenv && pipenv install --system
