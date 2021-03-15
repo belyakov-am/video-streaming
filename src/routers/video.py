@@ -1,3 +1,4 @@
+import pathlib
 import uuid
 
 from fastapi import (
@@ -11,7 +12,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import StreamingResponse, HTMLResponse
 from pydantic import BaseModel
 
-from config import VIDEO_DIR
+from config import VIDEO_DIR, TEMPLATES_DIR
 from utils import video_frames_generator
 
 
@@ -19,7 +20,7 @@ router = APIRouter(
     prefix="/video"
 )
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
 
 class VideoUploadResponse(BaseModel):
@@ -84,7 +85,7 @@ async def video_stream(video_uuid: str):
 @router.get("/show", response_class=HTMLResponse)
 async def video_show(request: Request, video_uuid: str):
     return templates.TemplateResponse(
-        name="base.html",
+        name="video.html",
         context={
             "request": request,
             "video_uuid": video_uuid,
