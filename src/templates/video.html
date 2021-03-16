@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<video id="my-video" class="video-js" controls preload="auto" width="1280" height="720">
-	</video>
-    <script>
-	(function(){
+<video id="my-video" class="video-js" controls preload="auto" width="1280" height="720">
+</video>
+<script>
+    (function(){
         var url = "{{ details['path'] }}";
         var player = dashjs.MediaPlayer().create();
         player.initialize(document.querySelector("#my-video"), url, true);
     })();
-	</script>
+</script>
 {% endblock %}
