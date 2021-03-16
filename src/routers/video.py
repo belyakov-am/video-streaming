@@ -69,7 +69,7 @@ async def video_upload(name: str, description: str, file: UploadFile = File(...)
     }
 
 
-@router.get("/stream/{filepath:path}")
+@router.get("/stream/{filepath:path}", include_in_schema=False)
 async def video_stream(filepath: str):
     print(VIDEO_DIR / filepath)
     return FileResponse(VIDEO_DIR / filepath)
