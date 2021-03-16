@@ -71,6 +71,7 @@ async def video_upload(name: str, description: str, file: UploadFile = File(...)
 
 @router.get("/stream/{filepath:path}")
 async def video_stream(filepath: str):
+    print(VIDEO_DIR / filepath)
     return FileResponse(VIDEO_DIR / filepath)
 
 
@@ -85,7 +86,7 @@ async def video_show(request: Request, video_uuid: str):
         raise HTTPException(status_code=404, detail="No video with such name")
 
     details = {
-        "path": f"/video/stream-v2/{video_uuid}/video.mpd",
+        "path": f"/video/stream/{video_uuid}/video.mpd",
         "type": "video/mp4",
     }
 
