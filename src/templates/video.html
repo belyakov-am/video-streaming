@@ -1,13 +1,97 @@
 {% extends "base.html" %}
 
 {% block content %}
-<video id="my-video" class="video-js" controls preload="auto" width="1280" height="720">
-</video>
+
+<style type="text/css">
+
+.bold-h1 {
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.package {
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+}
+.row {
+    text-align: left;
+}
+.film-list {
+    text-align: left;
+    max-width: 500px;
+    display: block;
+    float: left;
+}
+.list {
+    background-color: #00d1b2;
+    max-width: 500px;
+    display: block;
+    float: left;
+}
+.video {
+    max-width: 600px;
+    display: block;
+    float: left;
+    margin-left: 20px;
+}
+</style>
+
+
+
+<div class="row">
+    <h1 class="bold-h1"> List of the content</h1>
+    <div id="films-list">
+        <div>
+            Sort by:
+            <button class="sort btn" data-sort="name" data-order="asc">
+              Name ↑
+            </button>
+            <button class="sort btn" data-sort="name" data-order="desc">
+              Name ↓
+            </button>
+            <button class="sort btn" data-sort="description" data-order="asc">
+              Description ↑
+            </button>
+            <button class="sort btn" data-sort="description" data-order="desc">
+              Description ↓
+            </button>
+        <div/>
+        <div class="list">
+        {% for film in details.films %}
+            <div class="package">
+               <span class="name">{{film.name}}</span>
+               <br />
+               <span class="description">{{film.description}}</span>
+               <br />
+               <button onclick="myFunction('{{ film.path }}')">Смотреть</button>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="video">
+        <video id="my-video" class="video-js" controls preload="auto" width="600"></video>
+    </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.1.0/list.min.js"></script>
+
 <script>
-    (function(){
-        var url = "{{ details['path'] }}";
-        var player = dashjs.MediaPlayer().create();
-        player.initialize(document.querySelector("#my-video"), url, true);
+    (function() {
+      var options = {valueNames: ['name', 'description']};
+      var filmList = new List('films-list', options);
     })();
 </script>
+
+
+
+<script>
+    function myFunction(url) {
+        var player = dashjs.MediaPlayer().create();
+        player.initialize(document.querySelector("#my-video"), url, true);
+    }; 
+</script>
+
+
 {% endblock %}
