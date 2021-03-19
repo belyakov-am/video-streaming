@@ -1,5 +1,7 @@
 import asyncpg
 
+import db.queries as q
+
 
 class DBManager:
     """
@@ -31,3 +33,7 @@ class DBManager:
             host=self.host,
             port=self.port,
         )
+
+    async def init_table(self) -> None:
+        async with self.pool.acquire() as conn:
+            await conn.execute(q.CREATE_VIDEOS_TABLE)

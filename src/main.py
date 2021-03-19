@@ -6,6 +6,12 @@ from app import create_app
 app = create_app()
 
 
+@app.on_event("startup")
+async def init_db():
+    await app.db.init_connection_pool()
+    await app.db.init_table()
+
+
 def main() -> None:
 
     uvicorn.run(
