@@ -1,16 +1,12 @@
-from fastapi import FastAPI
 import uvicorn
 
-from routers import video
-from utils import init_video_dir
+from app import create_app
 
 
-app = FastAPI()
-app.include_router(video.router)
+app = create_app()
 
 
 def main() -> None:
-    init_video_dir()
 
     uvicorn.run(
         app="main:app",
