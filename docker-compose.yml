@@ -10,6 +10,8 @@ services:
     - ./videos:/app/videos
     ports:
     - 8000:8000
+    depends_on:
+      - postgres
 
   postgres:
     image: postgres:13-alpine
