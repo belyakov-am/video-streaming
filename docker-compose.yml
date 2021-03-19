@@ -5,6 +5,8 @@ services:
     build:
       dockerfile: docker/backend.dockerfile
       context: .
+    env_file:
+      - .env
     volumes:
     - ./src:/app/src
     - ./videos:/app/videos
