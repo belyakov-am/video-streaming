@@ -37,3 +37,17 @@ class DBManager:
     async def init_table(self) -> None:
         async with self.pool.acquire() as conn:
             await conn.execute(q.CREATE_VIDEOS_TABLE)
+
+    async def insert_video_info(
+            self,
+            video_uuid: str,
+            name: str,
+            description: str,
+    ) -> bool:
+        async with self.pool.acquire() as conn:
+            status = await conn.execute(
+                q.INSERT_VIDEO_INFO,
+                video_uuid, name, description,
+            )
+
+        return status

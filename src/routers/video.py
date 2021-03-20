@@ -38,8 +38,12 @@ class VideoUploadResponse(BaseModel):
 
 
 @router.post("/upload", response_model=VideoUploadResponse)
-# TODO(belyakov): get more metadata and save it to db
-async def video_upload(name: str, description: str, file: UploadFile = File(...)):
+async def video_upload(
+        request: Request,
+        name: str,
+        description: str,
+        file: UploadFile = File(...),
+):
     # TODO(belyakov): check filename for . and /
 
     video_uuid = str(uuid.uuid4())
@@ -60,6 +64,13 @@ async def video_upload(name: str, description: str, file: UploadFile = File(...)
     _720p = Representation(Size(1280, 720), Bitrate(2048 * 1024, 320 * 1024))
     dash.representations(_720p)
     dash.output(str(video_dir / "video.mpd"), async_run=False)
+
+    # upload video info to db
+    await request.app.db.insert_video_info(
+        video_uuid=video_uuid,
+        name=name,
+        description=description
+    )
 
     return {
         "filename": file.filename,
