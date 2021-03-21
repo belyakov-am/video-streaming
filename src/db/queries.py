@@ -10,3 +10,7 @@ INSERT_VIDEO_INFO = """
 INSERT INTO videos(id, name, description) 
 VALUES($1, $2, $3)
 """
+
+SELECT_VIDEO_INFO = """
+SELECT * from videos
+"""

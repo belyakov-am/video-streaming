@@ -51,3 +51,9 @@ class DBManager:
             )
 
         return status
+
+    async def select_video_info(self):
+        async with self.pool.acquire() as conn:
+            rows = await conn.fetch(q.SELECT_VIDEO_INFO)
+
+        return rows

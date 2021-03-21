@@ -88,29 +88,20 @@ async def video_stream(filepath: str):
 
 
 @router.get("/show")
-async def video_show(request: Request, video_uuid: str):
-    video_uuids = os.listdir(VIDEO_DIR)
+async def video_show(request: Request):
+    videos_info = await request.app.db.select_video_info()
+    videos = []
+    for video_info in videos_info:
+        video_uuid = video_info["id"]
+        video = {
+            "path": f"/video/stream/{video_uuid}/video.mpd",
+            "name": video_info["name"],
+            "description": video_info["description"],
+        }
+        videos.append(video)
 
-    output_dir = VIDEO_DIR / f"{video_uuid}"
-    filename = output_dir / "video.mp4"
-
-    # check if file exists
-    if not filename.exists():
-        # response with not found error
-        raise HTTPException(status_code=404, detail="No video with such name")
-
-
-    films = []
-    for video_uuid in video_uuids:
-        film = {}
-        film['path'] = f"/video/stream/{video_uuid}/video.mpd"
-        film['name'] = f"Name-{video_uuid}"
-        film['description'] = f"This is description of the film {video_uuid}"
-        films.append(film)
-
-    print(films, flush=True)
     details = {
-        "films": films,
+        "films": videos,
         "type": "video/mp4",
     }
 
