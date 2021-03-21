@@ -34,6 +34,9 @@ class DBManager:
             port=self.port,
         )
 
+    async def close_connection_pool(self):
+        await self.pool.close()
+
     async def init_table(self) -> None:
         async with self.pool.acquire() as conn:
             await conn.execute(q.CREATE_VIDEOS_TABLE)

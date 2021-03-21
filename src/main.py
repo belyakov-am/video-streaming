@@ -12,6 +12,11 @@ async def init_db():
     await app.db.init_table()
 
 
+@app.on_event("shutdown")
+async def close_db():
+    await app.db.close_connection_pool()
+
+
 def main() -> None:
 
     uvicorn.run(
