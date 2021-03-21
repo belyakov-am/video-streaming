@@ -8,6 +8,7 @@ verify_ssl = true
 
 [packages]
 aiofiles = "0.6.0"
+asyncpg = "0.22.0"
 fastapi = "0.63.0"
 jinja2 = "2.11.3"
 opencv-python = "4.5.1.48"

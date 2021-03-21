@@ -5,8 +5,20 @@ services:
     build:
       dockerfile: docker/backend.dockerfile
       context: .
+    env_file:
+      - .env
     volumes:
     - ./src:/app/src
     - ./videos:/app/videos
     ports:
     - 8000:8000
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13-alpine
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "$POSTGRES_PORT:$POSTGRES_PORT"

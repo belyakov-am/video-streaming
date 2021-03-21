@@ -1,11 +1,9 @@
 import uuid
-import os
 
 from fastapi import (
     APIRouter,
     UploadFile,
     File,
-    HTTPException,
     Request,
 )
 from fastapi.templating import Jinja2Templates
@@ -38,8 +36,12 @@ class VideoUploadResponse(BaseModel):
 
 
 @router.post("/upload", response_model=VideoUploadResponse)
-# TODO(belyakov): get more metadata and save it to db
-async def video_upload(name: str, description: str, file: UploadFile = File(...)):
+async def video_upload(
+        request: Request,
+        name: str,
+        description: str,
+        file: UploadFile = File(...),
+):
     # TODO(belyakov): check filename for . and /
 
     video_uuid = str(uuid.uuid4())
@@ -61,6 +63,13 @@ async def video_upload(name: str, description: str, file: UploadFile = File(...)
     dash.representations(_720p)
     dash.output(str(video_dir / "video.mpd"), async_run=False)
 
+    # upload video info to db
+    await request.app.db.insert_video_info(
+        video_uuid=video_uuid,
+        name=name,
+        description=description
+    )
+
     return {
         "filename": file.filename,
         "content_type": file.content_type,
@@ -77,29 +86,20 @@ async def video_stream(filepath: str):
 
 
 @router.get("/show")
-async def video_show(request: Request, video_uuid: str):
-    video_uuids = os.listdir(VIDEO_DIR)
+async def video_show(request: Request):
+    videos_info = await request.app.db.select_video_info()
+    videos = []
+    for video_info in videos_info:
+        video_uuid = video_info["id"]
+        video = {
+            "path": f"/video/stream/{video_uuid}/video.mpd",
+            "name": video_info["name"],
+            "description": video_info["description"],
+        }
+        videos.append(video)
 
-    output_dir = VIDEO_DIR / f"{video_uuid}"
-    filename = output_dir / "video.mp4"
-
-    # check if file exists
-    if not filename.exists():
-        # response with not found error
-        raise HTTPException(status_code=404, detail="No video with such name")
-
-
-    films = []
-    for video_uuid in video_uuids:
-        film = {}
-        film['path'] = f"/video/stream/{video_uuid}/video.mpd"
-        film['name'] = f"Name-{video_uuid}"
-        film['description'] = f"This is description of the film {video_uuid}"
-        films.append(film)
-
-    print(films, flush=True)
     details = {
-        "films": films,
+        "films": videos,
         "type": "video/mp4",
     }
 
