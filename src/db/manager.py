@@ -45,12 +45,13 @@ class DBManager:
             self,
             video_uuid: str,
             name: str,
+            storage_video_uid: str,
             description: str,
     ) -> bool:
         async with self.pool.acquire() as conn:
             status = await conn.execute(
                 q.INSERT_VIDEO_INFO,
-                video_uuid, name, description,
+                video_uuid, name, storage_video_uid, description,
             )
 
         return status

@@ -10,6 +10,12 @@ WORKDIR /app
 RUN apt update && \
     apt -y install libgl1-mesa-glx ffmpeg
 
+RUN pip install setuptools aiohttp
+
+RUN git clone https://github.com/tus/tus-py-client.git
+RUN cd tus-py-client && \
+    python setup.py install
+
 # Copy pipenv files
 COPY Pipfile* ./
 
