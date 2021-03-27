@@ -224,14 +224,6 @@
             "index": "pypi",
             "version": "==1.8.1"
         },
-        "python-ffmpeg-video-streaming": {
-            "hashes": [
-                "sha256:7eb2f4d6fbb035c84db49256b2a4b14cbf6481c5e634b31fddd08a302d3333d7",
-                "sha256:a77c8047fad2d70381f4ca76e726a7a352df9330c3476903869a682a5644c352"
-            ],
-            "index": "pypi",
-            "version": "==0.1.14"
-        },
         "python-multipart": {
             "hashes": [
                 "sha256:f7bb5f611fc600d15fa47b3974c8aa16e93724513b49b5f95c81e6624c83fa43"
