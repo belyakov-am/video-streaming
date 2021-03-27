@@ -31,6 +31,6 @@ resource "yandex_compute_instance" "service-nginx" {
 
   metadata = {
     docker-container-declaration = file("${path.module}/declarations/nginx.yaml")
-    ssh-keys = "artem:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
   }
 }

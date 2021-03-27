@@ -31,6 +31,6 @@ resource "yandex_compute_instance" "postgres" {
 
   metadata = {
     docker-container-declaration = file("${path.module}/declarations/postgres.yaml")
-    ssh-keys = "artem:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
   }
 }
