@@ -10,7 +10,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-from config import VIDEO_DIR, TEMPLATES_DIR
+from config import TEMPLATES_DIR
 from src.routers.upload import upload_file
 
 
