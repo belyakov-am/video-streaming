@@ -11,6 +11,13 @@ from PyCharm).
 Backend is using FastAPI framework that autogenerates API documentation with Swagger.
 It can be accessed by `/docs` handle (e.g. `localhost:8000/docs`).
 
+If you don't have Cloudflare TOKEN and ACCOUNT_ID you should set environment variable CLOUDFLARE_DEBUG = 1.
+To save mock video with exists cloudflare_video_id:
+```
+echo 'cloudflare_video_id > filename
+```
+and use `/video/upload` with file=filename
+
 ### Docker
 Being in the root repository directory just run:
 ```shell

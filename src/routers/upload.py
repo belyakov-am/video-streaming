@@ -5,6 +5,7 @@ from tusclient import client
 
 CLOUDFLARE_TOKEN = os.getenv('CLOUDFLARE_TOKEN')
 CLOUDFLARE_ACCOUNT_ID = os.getenv('CLOUDFLARE_ACCOUNT_ID')
+CLOUDFLARE_DEBUG = os.getenv('CLOUDFLARE_DEBUG', None)
 CLOUDFLARE_URL = 'https://api.cloudflare.com/client/v4/accounts/{}/stream'
 
 
@@ -27,6 +28,14 @@ async def get_video_uid(url: str):
 
 
 async def upload_file(file_stream):
+    if CLOUDFLARE_DEBUG == '1':
+        '''
+        save video_id to file and send the file instead of video file
+        echo 'video_id' > file_input
+        /video/upload with file=file_input
+        '''
+        return str(file_stream.readline().strip().decode('utf-8'))
+
     new_client = get_client()
 
     uploader = new_client.async_uploader(
