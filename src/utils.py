@@ -1,16 +1,9 @@
-import pathlib
 from typing import (
     IO,
     Generator,
 )
 
 import cv2
-
-from config import VIDEO_DIR
-
-
-def init_video_dir():
-    pathlib.Path(VIDEO_DIR).mkdir(exist_ok=True)
 
 
 def video_frames_generator(video: IO) -> Generator[bytes, None, None]:
