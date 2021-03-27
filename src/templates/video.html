@@ -33,7 +33,7 @@
     max-width: 600px;
     display: block;
     float: left;
-    margin-left: 20px;
+    margin-left: 200px;
 }
 </style>
 
@@ -64,13 +64,18 @@
                <br />
                <span class="description">{{film.description}}</span>
                <br />
-               <button onclick="myFunction('{{ film.path }}')">Смотреть</button>
+               <button onclick="myFunction('{{ film.uid }}')">Смотреть</button>
             </div>
         {% endfor %}
         </div>
     </div>
-    <div class="video">
-        <video id="my-video" class="video-js" controls preload="auto" width="600"></video>
+    <div id="my-video" style="display:none" class="video">
+        <iframe id="video-js"
+            style="border: none;"
+            height="420"
+            width="600"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+            allowfullscreen="true"></iframe>
     </div>
 </div>
 
@@ -85,12 +90,16 @@
 </script>
 
 
-
 <script>
-    function myFunction(url) {
-        var player = dashjs.MediaPlayer().create();
-        player.initialize(document.querySelector("#my-video"), url, true);
-    }; 
+    function myFunction(uid) {
+        var x = document.getElementById("my-video");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        }
+
+        var y = document.getElementById("video-js");
+        y.src = "https://iframe.videodelivery.net/".concat(uid);
+    };
 </script>
 
 
