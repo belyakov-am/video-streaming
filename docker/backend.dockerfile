@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Install dependencies for opencv package
 RUN apt update && \
-    apt -y install libgl1-mesa-glx ffmpeg
+    apt -y install libgl1-mesa-glx
 
 RUN pip install setuptools aiohttp
 

@@ -8,13 +8,6 @@ from fastapi import (
 )
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import FileResponse
-from ffmpeg_streaming import (
-    Formats,
-    Bitrate,
-    Representation,
-    Size,
-    input as ffmpeg_input,
-)
 from pydantic import BaseModel
 
 from config import VIDEO_DIR, TEMPLATES_DIR
