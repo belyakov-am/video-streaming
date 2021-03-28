@@ -1,0 +1,7 @@
+spec:
+  containers:
+    - image: cr.yandex/crp8jnc116a9gf7ug02r/service-postgres:1.0.0
+      securityContext:
+        privileged: true
+      stdin: true
+      tty: true

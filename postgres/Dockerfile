@@ -1,0 +1,5 @@
+FROM postgres:13-alpine
+
+ENV POSTGRES_DB video
+ENV POSTGRES_USER user
+ENV POSTGRES_PASSWORD password
