@@ -1,11 +1,13 @@
 # Setup
 
+---
+**IMPORTANT NOTE**
+
+Do not forget to copy environment variables using `cp .env.example .env`
+for any type of setup.
 ___
 
 ## Local Development
-
-For a local development service stores uploaded videos locally at `videos/`
-directory. It is automatically created on the app startup.
 
 For developing and testing locally just use docker (you can also just
 run `main.py` from PyCharm).
@@ -16,8 +18,7 @@ Swagger. It can be accessed by `/docs` handle (e.g. `localhost:8000/docs`).
 If you don't have Cloudflare TOKEN and ACCOUNT_ID you should set environment
 variable CLOUDFLARE_DEBUG = 1. To save mock video with exists 
 cloudflare_video_id:
-
-```
+```shell
 echo 'cloudflare_video_id > filename
 ```
 
