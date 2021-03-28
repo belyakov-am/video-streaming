@@ -1,6 +1,6 @@
 spec:
   containers:
-    - image: cr.yandex/crp8jnc116a9gf7ug02r/service-nginx:1.0.0
+    - image: cr.yandex/crp8jnc116a9gf7ug02r/service-nginx:1.0.1
       securityContext:
         privileged: true
       stdin: true
