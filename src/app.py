@@ -3,7 +3,7 @@ import os
 from fastapi import FastAPI
 
 from db.manager import DBManager
-from routers import video
+from routers import video, root
 
 
 POSTGRES_USER = os.getenv("POSTGRES_USER")
@@ -16,6 +16,7 @@ POSTGRES_PORT = int(os.getenv("POSTGRES_PORT"))
 def create_app() -> FastAPI:
     app = FastAPI()
     app.include_router(video.router)
+    app.add_api_route("/", root.root)
 
     setup_db(app)
 
