@@ -7,11 +7,10 @@ from fastapi import (
     Request,
 )
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 from config import TEMPLATES_DIR
-from src.routers.upload import upload_file
+from routers.upload import upload_file
 
 
 router = APIRouter(
@@ -67,7 +66,7 @@ async def video_upload(
 
 
 @router.get("/show")
-async def video_show(request: Request):
+async def video_show(request: Request) -> templates.TemplateResponse:
     videos_info = await request.app.db.select_video_info()
     videos = []
     for video_info in videos_info:
